@@ -37,15 +37,14 @@ ruta.get("/agregarUsuario",(req,res)=>{
     res.render("formulario");
 });
 
-ruta.get("/editarUsuario/:idUsuario",async(req,res)=>{
+ruta.get("/editarUsuario/:idusuarios",async(req,res)=>{
     try {
         const usuariobd=new UsuarioBD();
-        const usuaio=await usuariobd.usuarioId(req.params.idUsuario);
-        console.log(usuaio);
-        res.render("editarUsuario", usuaio);
-
+        const usuario=await usuariobd.usuarioId(req.params.idusuarios);
+        res.render("editarUsuario", usuario);
     } catch (error) {
-        
+        console.log(error)
+        res.end;
     }
     //res.end();
 });
@@ -59,6 +58,9 @@ ruta.post("/editarUsuario", async(req,res)=>{
     console.error("Error al editar el usuario");
    } 
 });
+ruta.get("/editarUsuario",(req,res)=>{
+    res.render("formulario");
+});
 
 ruta.get("/borrarUsuario/:id",async(req,res)=>{
 try {
@@ -66,9 +68,11 @@ try {
     await usuariobd.borrarUsuario(req.params.id);
     res.redirect("/");
 } catch (error) {
-    
+    console.error(error);
 }
 });
-
+ruta.get("/borrarUsuario",(req,res)=>{
+    res.render("formulario");
+});
 
 module.exports=ruta;
