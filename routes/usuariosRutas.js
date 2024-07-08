@@ -14,8 +14,7 @@ ruta.get("/",async (req,res)=>{
             usuariosCorrectos.push(usuario);
         }
     });
-
-     //console.log(usuariosCorrectos);
+     console.log(usuariosCorrectos);
      res.render("mostrarUsuarios", {usuariosCorrectos});
 });
 
@@ -25,8 +24,8 @@ ruta.post("/agregarUsuario",(req,res)=>{
     if(usuario1.nombre!=undefined && usuario1.celular!=undefined && usuario1.correo!=undefined){
         const usuariobd = new UsuarioBD();
        usuariobd.nuevoUsuario(usuario1.mostrarDatos);
-        //console.log(usuario1.mostrarDatos);
-        res.render("inicio",usuario1.mostrarDatos);
+       console.log(usuario1.mostrarDatos);
+        //res.render("inicio",usuario1.mostrarDatos);
     }else{
         res.render("error");
     }
@@ -37,42 +36,37 @@ ruta.get("/agregarUsuario",(req,res)=>{
     res.render("formulario");
 });
 
-ruta.get("/editarUsuario/:idusuarios",async(req,res)=>{
+ruta.get("/editarUsuario/:id_usuarios",async(req,res)=>{
     try {
         const usuariobd=new UsuarioBD();
-        const usuario=await usuariobd.usuarioId(req.params.idusuarios);
+        const usuario=await usuariobd.usuarioID(req.params.id_usuarios);
         res.render("editarUsuario", usuario);
     } catch (error) {
-        console.log(error)
-        res.end;
+        console.log("Error al modificar el usuario"+error);
     }
     //res.end();
-});
+})
+
 ruta.post("/editarUsuario", async(req,res)=>{
    try {
     const usuariobd= new UsuarioBD();
+    console.log(req.body);
     await usuariobd.editarUsuario(req.body);
     console.log("Usuario editado correctamente");
     res.redirect("/");
    } catch (error) {
     console.error("Error al editar el usuario");
    } 
-});
-ruta.get("/editarUsuario",(req,res)=>{
-    res.render("formulario");
-});
+})
 
-ruta.get("/borrarUsuario/:id",async(req,res)=>{
+ruta.get("/borrarUsuario/:id_usuarios",async(req,res)=>{
 try {
     const usuariobd= new UsuarioBD();
-    await usuariobd.borrarUsuario(req.params.id);
+    await usuariobd.borrarUsuario(req.params.id_usuarios);
     res.redirect("/");
 } catch (error) {
     console.error(error);
 }
-});
-ruta.get("/borrarUsuario",(req,res)=>{
-    res.render("formulario");
-});
+})
 
 module.exports=ruta;

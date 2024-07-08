@@ -86,15 +86,15 @@ correo.addEventListener("blur", ()=>{
 var formulario=document.getElementById("formulario");
 formulario.addEventListener("submit",(e)=>{
     e.preventDefault();
-    console.log(enviarDatos);
-    if(enviarDatos > 0){
-        //enviarDatos=0;
-    } 
-    else{
+    if (enviarDatos === 1 && band === 3 ){
         formulario.submit();
+        requestNotification();
+    }else{
+        enviarDatos === 0;
+        requestNotification1();
+        // alert("Hay campos con error o sin validar");
     }
-});
-
+})
 
 var formulario=document.getElementById("formulario");
 
@@ -117,9 +117,26 @@ formulario.addEventListener("submit", (e)=>{
         circleCheckNombre.classList.remove("ocultar");
         nombre.classList.remove("error");
         avanzar=1;
-        
     }
     if(avanzar=1){
         formulario.submit();
     }
 })
+
+function requestNotification() {
+    Notification.requestPermission()
+        .then(Permission => {
+            if(Permission === "granted") {
+                new Notification("Se registro correctamente")
+            }
+        })
+}
+
+function requestNotification1() {
+    Notification.requestPermission()
+        .then(Permission => {
+            if(Permission === "granted") {
+                new Notification("Error al registrarse")
+            }
+        })    
+}

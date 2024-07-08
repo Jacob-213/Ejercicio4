@@ -18,13 +18,14 @@
                 <td><%= usuario.celular %></td>
                 <td><%= usuario.correo %></td>
                 <td>
-                    <a href="/editarUsuario/<%= usuario.idusuario %>">Editar</a> /
-                    <a href="/borrarUsuario/<%= usuario.idusuario %>">Borrar</a>
+                    <a href="/editarUsuario/<%= usuario.idusuarios %>">Editar</a> /
+                    <a href="/borrarUsuario/<%= usuario.idusuarios %>">Borrar</a>
                 </td>
             </tr>
         <% }); %>
             </tbody>
         </table>
+        <a href="/agregarUsuario"><button id="agregar_usuario" class="agregar_usuario" type="button">Agregar Usuario</button></a>
     </div>
     
 <%- include("templates/pie") %>

@@ -1,5 +1,17 @@
 *{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;       
+    font-family: Verdana, Geneva, Tahoma, sans-serif;  
+
+}
+
+.contenedor{
+display: block;
+margin: 40px;
+}
+
+.agregar_usuario{
+    border: solid saddlebrown;
+    width: 100%;
+
 }
 
 h1{
